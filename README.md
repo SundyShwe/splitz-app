@@ -1,6 +1,6 @@
 # SPLITZ
 ## App for tracing expenses shared with your friends
-Frontend : Angular 16, RxJS, Bootstrap, Google Authentication, JWT Authentication
+Frontend : Angular 16, RxJS, Bootstrap, Google Authentication, JWT Authentication  
 Backend : Node, Expres and MongoDB
 
 ## Main Features
@@ -8,11 +8,8 @@ Backend : Node, Expres and MongoDB
 2. Records you shared expenses with the group
 3. Overview the split amount between group members and see who owe how much.
 
-## Functions
-Backend
 
-
-## ➤ Project Dependencies
+## Project Dependencies
 
 To build and run this project, you'll need the following tools.
 
@@ -20,26 +17,36 @@ To build and run this project, you'll need the following tools.
 * Angular CLI - [Install the Angular CLI](https://angular.io/cli)
 
 
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#build-the-application)
+##  Backend
+To configure the backend: 
+1. create a config.env file under 'config' folder
+2. create the following environment variables 
+```
+PORT = 3000
+DB_URL="YOUR_MONGODB_URL"
+JWT_PRIVATE_KEY='YOUR_JWE_EKY'
+AWS_ACCESS_KEY_ID=YOUR_AWS_KEY
+AWS_SECRET_ACCESS_KEY=YOUR_AWS_SECRECT_KEY
+AWS_BUCKET_NAME=YOUR_S3_BUCKET_NAME
 
-## ➤ Build the Application
-To build your application for the first time, run the following in your shell:
+```
+3. install dependencies and run the application
 
 ```console
+foo@bar:~$: cd splitz-backend
 foo@bar:~$: npm install
-foo@bar:~$: npm run build
-foo@bar:~$: npm run test
+foo@bar:~$: npm run dev
 ```
 
 
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#run-the-application)
-
-## ➤ Run the application
+## Front ENd
 To run this application for the first time, run the following in your shell:
 
 ```console
-foo@bar:~$: npm run start
+foo@bar:~$: cd splitz-frontend
+foo@bar:~$: npm install
+foo@bar:~$: ng serve
 ```
-
 Open up the browser to http://127.0.0.1:4200 to view the application
+
 
