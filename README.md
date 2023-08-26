@@ -39,7 +39,7 @@ foo@bar:~$: npm run dev
 ```
 
 
-## Front ENd
+## Front End
 To run this application for the first time, run the following in your shell:
 
 ```console
@@ -49,4 +49,20 @@ foo@bar:~$: ng serve
 ```
 Open up the browser to http://127.0.0.1:4200 to view the application
 
+## Screenshots
+Sign In Page           | Register Page  |  Google Sign IN Page
+:-------------------------:|:-------------------------:|:-------------------------:
+![](./splitz-frontend/src/assets/screenshots/login.png)  |  ![](./splitz-frontend/src/assets/screenshots/register.png) | ![](./splitz-frontend/src/assets/screenshots/google_auth.png)
+
+Landing Page           | Group List Page  |  Group Detial Page
+:-------------------------:|:-------------------------:|:-------------------------:
+![](./splitz-frontend/src/assets/screenshots/landing.png)  |  ![](./splitz-frontend/src/assets/screenshots/group_list.png) | ![](./splitz-frontend/src/assets/screenshots/group_details.png)
+
+Add Group           | Add Member  |  Add Bill
+:-------------------------:|:-------------------------:|:-------------------------:
+![](./splitz-frontend/src/assets/screenshots/gorup_new.png)  |  ![](./splitz-frontend/src/assets/screenshots/member_new.png) | ![](./splitz-frontend/src/assets/screenshots/bill_new.png)
+
+Bill List         | Bill Details  |  Split Report by Group
+:-------------------------:|:-------------------------:|:-------------------------:
+![](./splitz-frontend/src/assets/screenshots/bill_list.png)  |  ![](./splitz-frontend/src/assets/screenshots/bill_details.png) | ![](./splitz-frontend/src/assets/screenshots/group_report.png)
 
