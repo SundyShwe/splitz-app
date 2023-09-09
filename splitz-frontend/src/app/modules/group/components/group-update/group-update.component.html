@@ -1,0 +1,89 @@
+<div class="wrapper mb-5">
+  <div id="formContentLeft">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first p-3 text-center">
+      <h2><i class="bi bi-people-fill"></i> Group Detials</h2>
+    </div>
+
+    <!--Form -->
+    <div class="text-center">
+      <form [formGroup]="myForm">
+        <label class="visually-hidden" for="name"> Name </label>
+        <input type="text" placeholder="Name" formControlName="name" />
+        <label class="visually-hidden" for="description"> Description </label>
+        <input
+          type="text"
+          placeholder="Description"
+          formControlName="description"
+        />
+        <label class="visually-hidden" for="category"> Category </label>
+        <select formControlName="category">
+          <option value="" disabled selected hidden>Category</option>
+          <option value="Trip">Trip</option>
+          <option value="Activity">Activity</option>
+          <option value="Event">Event</option>
+          <option value="Housing">Housing</option>
+          <option value="Utilities">Utilities</option>
+        </select>
+        <label class="visually-hidden" for="date"> Date </label>
+        <input type="date" placeholder="Date" formControlName="date" />
+
+        <input
+          [disabled]="myForm.invalid"
+          type="button"
+          class="fadeIn fourth"
+          value="💾 Update Info"
+          (click)="onSave()"
+        />
+
+        <input
+          type="button"
+          class="fadeIn"
+          value="⏪ Back to List"
+          (click)="goToList()"
+        />
+      </form>
+
+      <!-- Form Error -->
+      <div
+        *ngIf="name.invalid && (name.dirty || name.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="name.errors?.['required']">Group Name is required</div>
+      </div>
+      <div
+        *ngIf="category.invalid && (category.dirty || category.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="category.errors?.['required']">Category is required</div>
+      </div>
+      <div
+        *ngIf="date.invalid && (date.dirty || date.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="date.errors?.['required']">Date is required</div>
+      </div>
+    </div>
+    <h3 class="mb3 text-center">
+      <i class="bi bi-people-fill"></i> Members
+      <button (click)="addMember(group_id)" class="btn btn-info">
+        ➕ Add Member
+      </button>
+    </h3>
+    <div class="container text-left mb-3 mt-3" *ngIf="group && group.members">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let member of group.members">
+          <span class="text-left">{{ member.fullname }}</span>
+          <a
+            class="delete-icon"
+            rel="Remove Member"
+            (click)="removeMember(member.user_id)"
+            >❌</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

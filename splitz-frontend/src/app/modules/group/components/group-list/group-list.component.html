@@ -1,0 +1,137 @@
+<h2>
+  My Groups
+  <button (click)="onCreateGroup()" type="button" class="btn btn-info">
+    👨‍👦‍👦 Create Group
+  </button>
+</h2>
+<div>
+  <div
+    class="p-2 border border-warning mb-3 alert alert-secondary"
+    *ngIf="myGroups.length > 0"
+  >
+    <form [formGroup]="filterForm">
+      <div class="row align-items-center p-1">
+        <div class="col">
+          <label class="sr-only">Name</label>
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Group Name"
+              formControlName="searchKey"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <label class="sr-only">Category</label>
+          <select class="form-control form-select" formControlName="category">
+            <option value="" selected>Select..</option>
+            <option value="Trip">Trip</option>
+            <option value="Activity">Activity</option>
+            <option value="Event">Event</option>
+            <option value="Housing">Housing</option>
+            <option value="Utilities">Utilities</option>
+          </select>
+        </div>
+        <div class="col">
+          <label class="sr-only">Date : From</label>
+          <div class="input-group">
+            <input
+              type="date"
+              class="form-control"
+              formControlName="fromDate"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <label class="sr-only" for="inlineFormInputGroup">To</label>
+          <div class="input-group">
+            <input type="date" class="form-control" formControlName="toDate" />
+          </div>
+        </div>
+        <div class="col">
+          <button class="btn btn-info mt-3" (click)="onFilter()">
+            🔎 Search
+          </button>
+          <button class="btn btn-info mt-3" (click)="onClear()">
+            ✨ Clear
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="row p-1" *ngIf="serachError.length > 0">
+      <p class="text-danger" *ngFor="let err of serachError">
+        <em>* {{ err }}.</em>
+      </p>
+    </div>
+  </div>
+  <div class="table-responsive" *ngIf="filteredGroups.length > 0; else noGroup">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr class="table-warning">
+          <th scope="col">Name</th>
+          <th scope="col">Category</th>
+          <th scope="col">Members</th>
+          <th scope="col">Date</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tr *ngFor="let g of filteredGroups">
+        <td>{{ g.name }}</td>
+        <td>{{ g.category }}</td>
+        <td class="text-align-center">
+          {{ g.members.length }}
+        </td>
+        <td>{{ g.date | date }}</td>
+        <td>
+          <button (click)="addMember(g._id)" class="btn btn-info">
+            ➕ Add Member
+          </button>
+          <button (click)="addBill(g._id)" class="btn btn-info">
+            📜 Add A Bill
+          </button>
+          <button (click)="viewBills(g._id)" class="btn btn-info">
+            💲 View All Bills
+          </button>
+
+          <button
+            (click)="goToReport(g._id)"
+            type="button"
+            class="btn btn-info"
+          >
+            📊 Report
+          </button>
+          <button (click)="viewDetails(g._id)" class="btn btn-info">
+            ⚙ View Details
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<ng-template #noGroup>
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr class="table-warning">
+        <th scope="col">Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Members</th>
+        <th scope="col">Date</th>
+        <th scope="col">Action</th>
+      </tr>
+      <tr>
+        <td colspan="7">
+          No Groups Found.
+          <button
+            (click)="onCreateGroup()"
+            type="button"
+            class="btn btn-info"
+            *ngIf="myGroups.length < 0"
+          >
+            Create New Group
+          </button>
+        </td>
+      </tr>
+    </thead>
+  </table>
+</ng-template>

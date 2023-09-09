@@ -1,0 +1,17 @@
+button {
+  background-color: #56baed;
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+button:disabled {
+  background-color: gray;
+}
+a.btnLink {
+  text-decoration: none;
+  color: #0d0d0d;
+}

@@ -1,0 +1,89 @@
+<div class="container m-5">
+  <div class="row text-center">
+    <div class="col w-25">
+      <div class="card shadow bg-body rounded">
+        <div class="card-body">
+          <h5 class="card-title">Groups</h5>
+          <p class="card-text">{{ totalGroup }}</p>
+        </div>
+        <div class="card-footer">
+          <a class="btnLink" [routerLink]="['', 'groups']">
+            👨‍👦‍👦 View My Groups
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col w-25">
+      <div class="card shadow bg-body rounded">
+        <div class="card-body">
+          <h5 class="card-title">Total Expenses</h5>
+          <p class="card-text">{{ totalExp | number : "1.2-2" }}</p>
+        </div>
+        <div class="card-footer">💰</div>
+      </div>
+    </div>
+    <div class="col w-25">
+      <div class="card shadow bg-body rounded">
+        <div class="card-body">
+          <h5 class="card-title">Paid</h5>
+          <p class="card-text">{{ totalPaid | number : "1.2-2" }}</p>
+        </div>
+        <div class="card-footer">💸</div>
+      </div>
+    </div>
+    <div class="col w-25">
+      <div class="card shadow bg-body rounded">
+        <div class="card-body">
+          <h5 class="card-title">Owed</h5>
+          <p class="card-text">{{ totalOwed | number : "1.2-2" }}</p>
+        </div>
+        <div class="card-footer">💢</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+  <div class="card shadow bg-body rounded p-5">
+    <h2 class="text-center mb-4">😎 My Account</h2>
+    <div class="row m-2">
+      <div class="col align-middle">Name</div>
+      <div class="col">{{ myaccount.fullname }}</div>
+    </div>
+    <div class="row m-2">
+      <div class="col align-middle">Email</div>
+      <div class="col">{{ myaccount.email }}</div>
+    </div>
+    <h5 class="mt-4">Change Password</h5>
+    <form [formGroup]="myForm" class="row gy-2 gx-3 align-items-center">
+      <div class="col-auto">
+        <label class="visually-hidden" for="password"> New Password </label>
+        <input
+          type="password"
+          class="form-control"
+          placeholder="New Password"
+          formControlName="password"
+        />
+      </div>
+
+      <div class="col-auto">
+        <button
+          [disabled]="myForm.invalid"
+          type="submit"
+          class="btn"
+          (click)="onChangePassword()"
+        >
+          💾 Save
+        </button>
+      </div>
+    </form>
+    <div
+      *ngIf="password.invalid && (password.dirty || password.touched)"
+      class="alert alert-danger"
+    >
+      <div *ngIf="password.errors?.['required']">Password is required</div>
+      <div *ngIf="password.errors?.['minlength']">
+        Password must be at least 6 characters
+      </div>
+    </div>
+  </div>
+</div>

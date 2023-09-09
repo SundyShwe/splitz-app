@@ -1,0 +1,56 @@
+<div class="wrapper">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first p-3">
+      <h3><i class="bi bi-person-plus"></i> Add Members</h3>
+      <span *ngIf="group"> Group : {{ group.name }}</span>
+    </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="myForm">
+      <label class="visually-hidden" for="fullname"> Full Name </label>
+      <input
+        type="text"
+        class="fadeIn second"
+        placeholder="full name"
+        formControlName="fullname"
+      />
+      <label class="visually-hidden" for="email"> Email </label>
+      <input
+        type="text"
+        class="fadeIn second"
+        placeholder="email"
+        formControlName="email"
+      />
+    </form>
+    <input
+      [disabled]="myForm.invalid"
+      type="button"
+      class="fadeIn fourth"
+      value="💾 Save"
+      (click)="onSave()"
+    />
+    <input
+      type="button"
+      class="fadeIn fourth"
+      value="⏪ Back"
+      (click)="goToList()"
+    />
+    <!-- Form Error -->
+    <div
+      *ngIf="fullname.invalid && (fullname.dirty || fullname.touched)"
+      class="alert alert-danger"
+    >
+      <div *ngIf="fullname.errors?.['required']">Full name is required</div>
+    </div>
+    <div
+      *ngIf="email.invalid && (email.dirty || email.touched)"
+      class="alert alert-danger"
+    >
+      <div *ngIf="email.errors?.['required']">Email is required</div>
+      <div *ngIf="email.errors?.['email']">Please enter a proper email</div>
+    </div>
+  </div>
+</div>

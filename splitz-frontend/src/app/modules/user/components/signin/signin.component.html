@@ -1,0 +1,72 @@
+<div class="wrapper">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first p-3">
+      <h1><i class="bi bi-door-open"></i> Sign In</h1>
+    </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="myForm">
+      <label class="visually-hidden" for="email"> Email </label>
+      <input
+        type="text"
+        id="email"
+        class="fadeIn second"
+        placeholder="email"
+        formControlName="email"
+      />
+      <label class="visually-hidden" for="password"> Password </label>
+      <input
+        type="password"
+        id="password"
+        class="fadeIn third"
+        placeholder="password"
+        formControlName="password"
+      />
+      <input
+        [disabled]="myForm.invalid"
+        type="button"
+        id="btnSignIn"
+        class="fadeIn fourth btn btn-info"
+        value="Sign In"
+        (click)="onSignIn()"
+      />
+    </form>
+
+    <!-- Form Error -->
+
+    <div
+      *ngIf="email.invalid && (email.dirty || email.touched)"
+      class="alert alert-danger"
+    >
+      <div *ngIf="email.errors?.['required']">Email is required</div>
+      <div *ngIf="email.errors?.['email']">Please enter a proper email</div>
+    </div>
+    <div
+      *ngIf="password.invalid && (password.dirty || password.touched)"
+      class="alert alert-danger"
+    >
+      <div *ngIf="password.errors?.['required']">Password is required</div>
+      <div *ngIf="password.errors?.['minlength']">
+        Password must be at least 6 characters
+      </div>
+    </div>
+
+    <!-- Register Account  -->
+    <div id="formFooter">
+      <button id="btnRegister" class="btn btn-info" (click)="goToRegister()">
+        Register
+      </button>
+
+      <div class="btn btn-info" id="google-button">
+        <asl-google-signin-button
+          type="icon"
+          size="medium"
+        ></asl-google-signin-button>
+        Log in with Google
+      </div>
+    </div>
+  </div>
+</div>
