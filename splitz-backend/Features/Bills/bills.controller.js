@@ -1,4 +1,3 @@
-import billModel from "./bills.model.js";
 import groupsModel from "../Groups/groups.model.js";
 import billsModel from "./bills.model.js";
 
@@ -6,7 +5,7 @@ export const getAllBills = async (req, res, next) => {
   try {
     const { group_id } = req.params;
     //console.log(group_id);
-    const results = await billModel
+    const results = await billsModel
       .find({
         group_id: group_id,
       })
@@ -100,7 +99,7 @@ export const updatePaidOwed = async (req, res, next) => {
 export const viewBillByID = async (req, res, next) => {
   try {
     const { group_id, bill_id } = req.params;
-    const results = await billModel.findById(bill_id).lean();
+    const results = await billsModel.findById(bill_id).lean();
     results && res.json({ success: true, data: results });
   } catch (err) {
     next(err);
@@ -146,10 +145,7 @@ export const addSplitAmount = async (req, res, next) => {
     let result;
     for (let i = 0; i < paid_by.length; i++) {
       let user_amount = paid_by[i];
-      result = await groupsModel.updateOne(
-        { _id: bill_id },
-        { $addToSet: { paid_by: user_amount } }
-      );
+      result = await groupsModel.updateOne({ _id: bill_id }, { $addToSet: { paid_by: user_amount } });
     }
     res.json({ success: true, data: result });
   } catch (err) {
@@ -163,10 +159,7 @@ export const updateSplitAmount = async (req, res, next) => {
     const { paid_by } = req.body;
     let result;
     paid_by.forEach((e) => {
-      groupsModel.updateOne(
-        { _id: bill_id, "paidby.user_id": e.user_id },
-        { $set: { "paid_by.paid_amount": e.paid_amount } }
-      );
+      groupsModel.updateOne({ _id: bill_id, "paidby.user_id": e.user_id }, { $set: { "paid_by.paid_amount": e.paid_amount } });
     });
   } catch (err) {
     next(err);

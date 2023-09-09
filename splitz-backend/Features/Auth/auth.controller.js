@@ -13,16 +13,14 @@ export const singIn = async (req, res, next) => {
 
     if (!process.env.JWT_PRIVATE_KEY) throw new Error("Could not sign token");
 
-    const JWT = jwt.sign(
-      { _id: user._id, fullname: user.fullname, email: user.email },
-      process.env.JWT_PRIVATE_KEY
-    );
+    const JWT = jwt.sign({ _id: user._id, fullname: user.fullname, email: user.email }, process.env.JWT_PRIVATE_KEY);
 
     res.json({ success: true, data: JWT });
   } catch (err) {
     next(err);
   }
 };
+
 export const singUp = async (req, res, next) => {
   try {
     const new_user = req.body;
@@ -31,9 +29,7 @@ export const singUp = async (req, res, next) => {
     if (!plain_password) throw new Error(`Password not found`);
     const hashed_password = await bcrypt.hash(plain_password, 10);
 
-    let added_member = await usersModel
-      .findOne({ email: new_user.email })
-      .lean();
+    let added_member = await usersModel.findOne({ email: new_user.email }).lean();
 
     //user aldy existed after adding to the group
     if (added_member) {
@@ -61,9 +57,7 @@ export const googleSignIn = async (req, res, next) => {
   try {
     const new_user = req.body;
 
-    let added_member = await usersModel
-      .findOne({ email: new_user.email })
-      .lean();
+    let added_member = await usersModel.findOne({ email: new_user.email }).lean();
 
     //save user if it is not existed in the system
     if (!added_member) {
@@ -88,24 +82,4 @@ export const googleSignIn = async (req, res, next) => {
 
     res.json({ success: true, data: JWT });
   } catch (err) {}
-};
-
-export const getAllUser = async (req, res, next) => {
-  try {
-  } catch (error) {
-    next(error);
-  }
-};
-export const getUserByID = async (req, res, next) => {
-  try {
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const updateUserByID = async (req, res, next) => {
-  try {
-  } catch (error) {
-    next(error);
-  }
 };

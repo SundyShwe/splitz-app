@@ -1,15 +1,7 @@
 import { Router } from "express";
-import {
-  addNewBill,
-  deleteBillByID,
-  getAllBills,
-  savePaidOwed,
-  settleBill,
-  updateBillByID,
-  updatePaidOwed,
-  viewBillByID,
-} from "./bills.controller.js";
+import { addNewBill, deleteBillByID, getAllBills, savePaidOwed, settleBill, updateBillByID, updatePaidOwed, viewBillByID } from "./bills.controller.js";
 import multer from "multer";
+//import { uploadImage } from "./upload.middleware.js";
 
 const router = Router({ mergeParams: true });
 
@@ -19,7 +11,7 @@ router.get("/", getAllBills);
 
 //@desc     add new bill to the group
 //@route    POST /groups/:group_id/bills
-//router.post("/", upload.single("receipts"), addNewBill);
+//router.post("/", uploadImage.single("image"), addNewBill);
 router.post("/", multer({ dest: "uploads/" }).single("receipt"), addNewBill);
 
 //@desc     add paid_by and owed_by of the bill
@@ -32,11 +24,8 @@ router.get("/:bill_id", viewBillByID);
 
 //@desc     update the bill by ID
 //@route    POST /groups/:group_id/bills/:bill_id
-router.post(
-  "/:bill_id",
-  multer({ dest: "uploads/" }).single("receipt"),
-  updateBillByID
-);
+//router.post("/:bill_id", uploadImage.single("receipt"), updateBillByID);
+router.post("/:bill_id", multer({ dest: "uploads/" }).single("receipt"), updateBillByID);
 
 //@desc     add paid_by and owed_by of the bill
 //@route    POST /groups/:group_id/bills/:bill_id/paidowed
