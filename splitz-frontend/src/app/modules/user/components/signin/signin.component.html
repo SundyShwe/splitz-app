@@ -16,57 +16,67 @@
         class="fadeIn second"
         placeholder="email"
         formControlName="email"
-      />
-      <label class="visually-hidden" for="password"> Password </label>
-      <input
-        type="password"
-        id="password"
-        class="fadeIn third"
-        placeholder="password"
-        formControlName="password"
-      />
-      <input
-        [disabled]="myForm.invalid"
-        type="button"
-        id="btnSignIn"
-        class="fadeIn fourth btn btn-info"
-        value="Sign In"
-        (click)="onSignIn()"
-      />
-    </form>
+        />
+        <label class="visually-hidden" for="password"> Password </label>
+        <input
+          type="password"
+          id="password"
+          class="fadeIn third"
+          placeholder="password"
+          formControlName="password"
+          />
+          <input
+            [disabled]="myForm.invalid"
+            type="button"
+            id="btnSignIn"
+            class="fadeIn fourth btn btn-info"
+            value="Sign In"
+            (click)="onSignIn()"
+            />
+          </form>
 
-    <!-- Form Error -->
+          <!-- Form Error -->
 
-    <div
-      *ngIf="email.invalid && (email.dirty || email.touched)"
-      class="alert alert-danger"
-    >
-      <div *ngIf="email.errors?.['required']">Email is required</div>
-      <div *ngIf="email.errors?.['email']">Please enter a proper email</div>
-    </div>
-    <div
-      *ngIf="password.invalid && (password.dirty || password.touched)"
-      class="alert alert-danger"
-    >
-      <div *ngIf="password.errors?.['required']">Password is required</div>
-      <div *ngIf="password.errors?.['minlength']">
-        Password must be at least 6 characters
+          @if (email.invalid && (email.dirty || email.touched)) {
+            <div
+              class="alert alert-danger"
+              >
+              @if (email.errors?.['required']) {
+                <div>Email is required</div>
+              }
+              @if (email.errors?.['email']) {
+                <div>Please enter a proper email</div>
+              }
+            </div>
+          }
+          @if (password.invalid && (password.dirty || password.touched)) {
+            <div
+              class="alert alert-danger"
+              >
+              @if (password.errors?.['required']) {
+                <div>Password is required</div>
+              }
+              @if (password.errors?.['minlength']) {
+                <div>
+                  Password must be at least 6 characters
+                </div>
+              }
+            </div>
+          }
+
+          <!-- Register Account  -->
+          <div id="formFooter">
+            <button id="btnRegister" class="btn btn-info" (click)="goToRegister()">
+              Register
+            </button>
+
+            <div class="btn btn-info" id="google-button">
+              <asl-google-signin-button
+                type="icon"
+                size="medium"
+              ></asl-google-signin-button>
+              Log in with Google
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <!-- Register Account  -->
-    <div id="formFooter">
-      <button id="btnRegister" class="btn btn-info" (click)="goToRegister()">
-        Register
-      </button>
-
-      <div class="btn btn-info" id="google-button">
-        <asl-google-signin-button
-          type="icon"
-          size="medium"
-        ></asl-google-signin-button>
-        Log in with Google
-      </div>
-    </div>
-  </div>
-</div>

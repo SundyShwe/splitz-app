@@ -17,73 +17,86 @@
           type="text"
           placeholder="Description"
           formControlName="description"
-        />
-        <label class="visually-hidden" for="category"> Category </label>
-        <select formControlName="category">
-          <option value="" disabled selected hidden>Category</option>
-          <option value="Trip">Trip</option>
-          <option value="Activity">Activity</option>
-          <option value="Event">Event</option>
-          <option value="Housing">Housing</option>
-          <option value="Utilities">Utilities</option>
-        </select>
-        <label class="visually-hidden" for="date"> Date </label>
-        <input type="date" placeholder="Date" formControlName="date" />
+          />
+          <label class="visually-hidden" for="category"> Category </label>
+          <select formControlName="category">
+            <option value="" disabled selected hidden>Category</option>
+            <option value="Trip">Trip</option>
+            <option value="Activity">Activity</option>
+            <option value="Event">Event</option>
+            <option value="Housing">Housing</option>
+            <option value="Utilities">Utilities</option>
+          </select>
+          <label class="visually-hidden" for="date"> Date </label>
+          <input type="date" placeholder="Date" formControlName="date" />
 
-        <input
-          [disabled]="myForm.invalid"
-          type="button"
-          class="fadeIn fourth"
-          value="💾 Update Info"
-          (click)="onSave()"
-        />
+          <input
+            [disabled]="myForm.invalid"
+            type="button"
+            class="fadeIn fourth"
+            value="💾 Update Info"
+            (click)="onSave()"
+            />
 
-        <input
-          type="button"
-          class="fadeIn"
-          value="⏪ Back to List"
-          (click)="goToList()"
-        />
-      </form>
+            <input
+              type="button"
+              class="fadeIn"
+              value="⏪ Back to List"
+              (click)="goToList()"
+              />
+            </form>
 
-      <!-- Form Error -->
-      <div
-        *ngIf="name.invalid && (name.dirty || name.touched)"
-        class="alert alert-danger"
-      >
-        <div *ngIf="name.errors?.['required']">Group Name is required</div>
-      </div>
-      <div
-        *ngIf="category.invalid && (category.dirty || category.touched)"
-        class="alert alert-danger"
-      >
-        <div *ngIf="category.errors?.['required']">Category is required</div>
-      </div>
-      <div
-        *ngIf="date.invalid && (date.dirty || date.touched)"
-        class="alert alert-danger"
-      >
-        <div *ngIf="date.errors?.['required']">Date is required</div>
-      </div>
-    </div>
-    <h3 class="mb3 text-center">
-      <i class="bi bi-people-fill"></i> Members
-      <button (click)="addMember(group_id)" class="btn btn-info">
-        ➕ Add Member
-      </button>
-    </h3>
-    <div class="container text-left mb-3 mt-3" *ngIf="group && group.members">
-      <ul class="list-group">
-        <li class="list-group-item" *ngFor="let member of group.members">
-          <span class="text-left">{{ member.fullname }}</span>
-          <a
-            class="delete-icon"
-            rel="Remove Member"
-            (click)="removeMember(member.user_id)"
-            >❌</a
-          >
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+            <!-- Form Error -->
+            @if (name.invalid && (name.dirty || name.touched)) {
+              <div
+                class="alert alert-danger"
+                >
+                @if (name.errors?.['required']) {
+                  <div>Group Name is required</div>
+                }
+              </div>
+            }
+            @if (category.invalid && (category.dirty || category.touched)) {
+              <div
+                class="alert alert-danger"
+                >
+                @if (category.errors?.['required']) {
+                  <div>Category is required</div>
+                }
+              </div>
+            }
+            @if (date.invalid && (date.dirty || date.touched)) {
+              <div
+                class="alert alert-danger"
+                >
+                @if (date.errors?.['required']) {
+                  <div>Date is required</div>
+                }
+              </div>
+            }
+          </div>
+          <h3 class="mb3 text-center">
+            <i class="bi bi-people-fill"></i> Members
+            <button (click)="addMember(group_id)" class="btn btn-info">
+              ➕ Add Member
+            </button>
+          </h3>
+          @if (group && group.members) {
+            <div class="container text-left mb-3 mt-3">
+              <ul class="list-group">
+                @for (member of group.members; track member) {
+                  <li class="list-group-item">
+                    <span class="text-left">{{ member.fullname }}</span>
+                    <a
+                      class="delete-icon"
+                      rel="Remove Member"
+                      (click)="removeMember(member.user_id)"
+                      >❌</a
+                      >
+                    </li>
+                  }
+                </ul>
+              </div>
+            }
+          </div>
+        </div>

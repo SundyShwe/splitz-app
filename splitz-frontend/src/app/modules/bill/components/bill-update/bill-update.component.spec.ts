@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastrModule } from 'ngx-toastr';
 import { BillUpdateComponent } from './bill-update.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('BillUpdateComponent', () => {
   let component: BillUpdateComponent;
@@ -11,15 +12,13 @@ describe('BillUpdateComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule,
+    declarations: [BillUpdateComponent],
+    imports: [RouterTestingModule,
         FormsModule,
         ReactiveFormsModule,
-        ToastrModule.forRoot(),
-      ],
-      declarations: [BillUpdateComponent],
-    });
+        ToastrModule.forRoot()],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     fixture = TestBed.createComponent(BillUpdateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

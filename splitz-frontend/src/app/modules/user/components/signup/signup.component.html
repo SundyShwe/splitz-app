@@ -15,52 +15,65 @@
         class="fadeIn second"
         placeholder="full name"
         formControlName="fullname"
-      />
-      <label class="visually-hidden" for="email"> Email </label>
-      <input
-        type="text"
-        class="fadeIn second"
-        placeholder="email"
-        formControlName="email"
-      />
-      <label class="visually-hidden" for="password"> Password </label>
-      <input
-        type="password"
-        class="fadeIn third"
-        placeholder="password"
-        formControlName="password"
-      />
-      <input
-        [disabled]="myForm.invalid"
-        type="button"
-        class="fadeIn fourth"
-        value="Register"
-        (click)="onRegister()"
-      />
-    </form>
+        />
+        <label class="visually-hidden" for="email"> Email </label>
+        <input
+          type="text"
+          class="fadeIn second"
+          placeholder="email"
+          formControlName="email"
+          />
+          <label class="visually-hidden" for="password"> Password </label>
+          <input
+            type="password"
+            class="fadeIn third"
+            placeholder="password"
+            formControlName="password"
+            />
+            <input
+              [disabled]="myForm.invalid"
+              type="button"
+              class="fadeIn fourth"
+              value="Register"
+              (click)="onRegister()"
+              />
+            </form>
 
-    <!-- Form Error -->
-    <div
-      *ngIf="fullname.invalid && (fullname.dirty || fullname.touched)"
-      class="alert alert-danger"
-    >
-      <div *ngIf="fullname.errors?.['required']">Full name is required</div>
-    </div>
-    <div
-      *ngIf="email.invalid && (email.dirty || email.touched)"
-      class="alert alert-danger"
-    >
-      <div *ngIf="email.errors?.['required']">Email is required</div>
-      <div *ngIf="email.errors?.['email']">Please enter a proper email</div>
-    </div>
-    <div
-      *ngIf="password.invalid && (password.dirty || password.touched)"
-      class="alert alert-danger"
-    >
-      <div *ngIf="password.errors?.['required']">Password is required</div>
-      <div *ngIf="password.errors?.['minlength']">
-        Password must be at least 6 characters
-      </div>
-    </div>
-  </div>
-</div>
+            <!-- Form Error -->
+            @if (fullname.invalid && (fullname.dirty || fullname.touched)) {
+              <div
+                class="alert alert-danger"
+                >
+                @if (fullname.errors?.['required']) {
+                  <div>Full name is required</div>
+                }
+              </div>
+            }
+            @if (email.invalid && (email.dirty || email.touched)) {
+              <div
+                class="alert alert-danger"
+                >
+                @if (email.errors?.['required']) {
+                  <div>Email is required</div>
+                }
+                @if (email.errors?.['email']) {
+                  <div>Please enter a proper email</div>
+                }
+              </div>
+            }
+            @if (password.invalid && (password.dirty || password.touched)) {
+              <div
+                class="alert alert-danger"
+                >
+                @if (password.errors?.['required']) {
+                  <div>Password is required</div>
+                }
+                @if (password.errors?.['minlength']) {
+                  <div>
+                    Password must be at least 6 characters
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>

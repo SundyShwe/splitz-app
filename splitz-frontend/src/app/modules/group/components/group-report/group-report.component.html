@@ -1,12 +1,14 @@
-<h2 *ngIf="group">
-  Expenses Report for {{ group.name }}
-  <button (click)="goToAdd()" type="button" class="btn btn-info">
-    📜 Add A Bill
-  </button>
-  <button (click)="goToGroup()" type="button" class="btn btn-info">
-    ⏪ Back to Group
-  </button>
-</h2>
+@if (group) {
+  <h2>
+    Expenses Report for {{ group.name }}
+    <button (click)="goToAdd()" type="button" class="btn btn-info">
+      📜 Add A Bill
+    </button>
+    <button (click)="goToGroup()" type="button" class="btn btn-info">
+      ⏪ Back to Group
+    </button>
+  </h2>
+}
 <div>
   <div class="p-2 border border-warning mb-3 alert alert-secondary">
     <div class="row">
@@ -32,35 +34,37 @@
       <div class="col">
         <div class="p-3 border bg-light">
           <h4 class="text-center mb-3">💸 Paid By</h4>
-          <div
-            class="alert p-3"
-            role="alert"
-            *ngFor="let member of paid_member"
-          >
-            <p class="float-start">{{ member.fullname }}</p>
-            <p class="float-end">
-              {{ member.total_amount | number : "1.2-2" }} $
-            </p>
-          </div>
+          @for (member of paid_member; track member) {
+            <div
+              class="alert p-3"
+              role="alert"
+              >
+              <p class="float-start">{{ member.fullname }}</p>
+              <p class="float-end">
+                {{ member.total_amount | number : "1.2-2" }} $
+              </p>
+            </div>
+          }
         </div>
       </div>
       <div class="col">
         <div class="p-3 border bg-light">
           <h4 class="text-center mb-3">💸 Owed Amount Per Members</h4>
-          <div
-            role="alert"
-            *ngFor="let member of owed_member"
+          @for (member of owed_member; track member) {
+            <div
+              role="alert"
             [ngClass]="
               member.total_amount > 0
                 ? ' alert text-primary'
                 : 'alert text-danger'
             "
-          >
-            <p class="float-start align-top p-0">{{ member.fullname }}</p>
-            <p class="float-end align-top p-0">
-              {{ member.total_amount | number : "1.2-2" }} $
-            </p>
-          </div>
+              >
+              <p class="float-start align-top p-0">{{ member.fullname }}</p>
+              <p class="float-end align-top p-0">
+                {{ member.total_amount | number : "1.2-2" }} $
+              </p>
+            </div>
+          }
         </div>
       </div>
     </div>

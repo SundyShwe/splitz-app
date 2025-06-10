@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { SigninComponent } from './signin.component';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -9,6 +9,7 @@ import {
   GoogleSigninButtonModule,
 } from '@abacritt/angularx-social-login';
 import { AuthService } from 'src/app/core/auth.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 fdescribe('SigninComponent', () => {
   let component: SigninComponent;
@@ -17,30 +18,29 @@ fdescribe('SigninComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        FormsModule,
+    declarations: [SigninComponent],
+    imports: [FormsModule,
         ReactiveFormsModule,
         ToastrModule.forRoot(),
-        GoogleSigninButtonModule,
-      ],
-      declarations: [SigninComponent],
-      providers: [
+        GoogleSigninButtonModule],
+    providers: [
         AuthService,
         {
-          provide: 'SocialAuthServiceConfig',
-          useValue: {
-            autoLogin: false,
-            providers: [
-              {
-                id: 'sample_ID',
-                provider: new GoogleLoginProvider('sample_ID'),
-              },
-            ],
-          } as SocialAuthServiceConfig,
+            provide: 'SocialAuthServiceConfig',
+            useValue: {
+                autoLogin: false,
+                providers: [
+                    {
+                        id: 'sample_ID',
+                        provider: new GoogleLoginProvider('sample_ID'),
+                    },
+                ],
+            } as SocialAuthServiceConfig,
         },
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
     fixture = TestBed.createComponent(SigninComponent);
     component = fixture.componentInstance;
     //component.ngOnInit();

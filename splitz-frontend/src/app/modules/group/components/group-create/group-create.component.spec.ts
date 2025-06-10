@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ToastrModule } from 'ngx-toastr';
 import { GroupCreateComponent } from './group-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('GroupCreateComponent', () => {
   let component: GroupCreateComponent;
@@ -10,14 +11,12 @@ describe('GroupCreateComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        ToastrModule.forRoot(),
+    declarations: [GroupCreateComponent],
+    imports: [ToastrModule.forRoot(),
         FormsModule,
-        ReactiveFormsModule,
-      ],
-      declarations: [GroupCreateComponent],
-    });
+        ReactiveFormsModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     fixture = TestBed.createComponent(GroupCreateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

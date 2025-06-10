@@ -1,10 +1,11 @@
-<h2 *ngIf="group">
-  Bill For {{ group.name }}
-
-  <button (click)="goToList()" type="button" class="btn btn-info">
-    ⏪ Back to Group
-  </button>
-</h2>
+@if (group) {
+  <h2>
+    Bill For {{ group.name }}
+    <button (click)="goToList()" type="button" class="btn btn-info">
+      ⏪ Back to Group
+    </button>
+  </h2>
+}
 <div>
   <div class="p-2 border border-warning mb-3 alert alert-secondary">
     <form [formGroup]="myForm">
@@ -20,131 +21,150 @@
               type="text"
               placeholder="Description"
               formControlName="description"
-            />
-          </div>
-          <div class="col-sm">
-            <label>Category</label>
-            <select formControlName="category">
-              <option value="" disabled selected hidden>Category</option>
-              <option value="Foods and Drinks">Foods and Drinks</option>
-              <option value="Transportation">Transportation</option>
-              <option value="Shopping">Shopping</option>
-              <option value="Accomodation">Accomodation</option>
-              <option value="Entertainment">Entertainment</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm">
-            <label>Bill Amount</label>
-            <input
-              type="number"
-              placeholder="Bill Amount"
-              formControlName="total_amount"
-            />
-          </div>
-          <div class="col-sm">
-            <label>Receipt</label>
-            <input
-              type="file"
-              name="receipt"
-              accept="image/jpg"
-              formControlName="receipt"
-              (change)="onFileSelected($event)"
-            />
-          </div>
-          <div class="col-sm">
-            <label>Date</label>
-            <input type="date" placeholder="Date" formControlName="date" />
-          </div>
-        </div>
-        <!-- Form Error -->
-
-        <div
-          *ngIf="title.invalid && (title.dirty || title.touched)"
-          class="alert alert-danger"
-        >
-          <div *ngIf="title.errors?.['required']">Title is required</div>
-        </div>
-        <div
-          *ngIf="category.invalid && (category.dirty || category.touched)"
-          class="alert alert-danger"
-        >
-          <div *ngIf="category.errors?.['required']">Category is required</div>
-        </div>
-        <div
-          *ngIf="
-            total_amount.invalid && (total_amount.dirty || total_amount.touched)
-          "
-          class="alert alert-danger"
-        >
-          <div *ngIf="total_amount.errors?.['required']">
-            Bill amount is required
-          </div>
-        </div>
-        <div
-          *ngIf="date.invalid && (date.dirty || date.touched)"
-          class="alert alert-danger"
-        >
-          <div *ngIf="date.errors?.['required']">Date is required</div>
-        </div>
-      </div>
-
-      <div class="container mt-3" *ngIf="group && group.members.length > 0">
-        <div class="row">
-          <div class="col-sm">
-            <h4>💸 Paid By</h4>
-            <div class="row" *ngFor="let member of group.members">
-              <div class="col align-middle">{{ member.fullname }}</div>
-              <div class="col">
-                <input
-                  type="number"
-                  placeholder="Paid Amount"
-                  class="form-control"
-                  [formControlName]="member.user_id"
-                />
-              </div>
+              />
+            </div>
+            <div class="col-sm">
+              <label>Category</label>
+              <select formControlName="category">
+                <option value="" disabled selected hidden>Category</option>
+                <option value="Foods and Drinks">Foods and Drinks</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Accomodation">Accomodation</option>
+                <option value="Entertainment">Entertainment</option>
+              </select>
             </div>
           </div>
-          <div class="col-sm">
-            <h4>💸 Owed Amount Per Members</h4>
-            <div
-              role="alert"
-              *ngFor="let member of bill.owed_by"
+
+          <div class="row">
+            <div class="col-sm">
+              <label>Bill Amount</label>
+              <input
+                type="number"
+                placeholder="Bill Amount"
+                formControlName="total_amount"
+                />
+              </div>
+              <div class="col-sm">
+                <label>Receipt</label>
+                <input
+                  type="file"
+                  name="receipt"
+                  accept="image/jpg"
+                  formControlName="receipt"
+                  (change)="onFileSelected($event)"
+                  />
+                </div>
+                <div class="col-sm">
+                  <label>Date</label>
+                  <input type="date" placeholder="Date" formControlName="date" />
+                </div>
+              </div>
+              <!-- Form Error -->
+
+              @if (title.invalid && (title.dirty || title.touched)) {
+                <div
+                  class="alert alert-danger"
+                  >
+                  @if (title.errors?.['required']) {
+                    <div>Title is required</div>
+                  }
+                </div>
+              }
+              @if (category.invalid && (category.dirty || category.touched)) {
+                <div
+                  class="alert alert-danger"
+                  >
+                  @if (category.errors?.['required']) {
+                    <div>Category is required</div>
+                  }
+                </div>
+              }
+              @if (
+                total_amount.invalid && (total_amount.dirty || total_amount.touched)
+                ) {
+                <div
+                  class="alert alert-danger"
+                  >
+                  @if (total_amount.errors?.['required']) {
+                    <div>
+                      Bill amount is required
+                    </div>
+                  }
+                </div>
+              }
+              @if (date.invalid && (date.dirty || date.touched)) {
+                <div
+                  class="alert alert-danger"
+                  >
+                  @if (date.errors?.['required']) {
+                    <div>Date is required</div>
+                  }
+                </div>
+              }
+            </div>
+
+            @if (group && group.members.length > 0) {
+              <div class="container mt-3">
+                <div class="row">
+                  <div class="col-sm">
+                    <h4>💸 Paid By</h4>
+                    @for (member of group.members; track member) {
+                      <div class="row">
+                        <div class="col align-middle">{{ member.fullname }}</div>
+                        <div class="col">
+                          <input
+                            type="number"
+                            placeholder="Paid Amount"
+                            class="form-control"
+                            [formControlName]="member.user_id"
+                            />
+                          </div>
+                        </div>
+                      }
+                    </div>
+                    <div class="col-sm">
+                      <h4>💸 Owed Amount Per Members</h4>
+                      @for (member of bill.owed_by; track member) {
+                        <div
+                          role="alert"
               [ngClass]="
                 member.owed_amount > 0
                   ? ' alert text-primary'
                   : 'alert text-danger'
               "
-            >
-              <span class="float-start">{{ member.fullname }}</span>
-              <span class="float-end"
-                >{{ member.owed_amount | number : "1.2-2" }} $</span
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="text-center mt-3" *ngIf="imgurl">
-        <img src="{{ imgurl }}" width="350" />
-      </div>
+                          >
+                          <span class="float-start">{{ member.fullname }}</span>
+                          <span class="float-end"
+                            >{{ member.owed_amount | number : "1.2-2" }} $</span
+                            >
+                          </div>
+                        }
+                      </div>
+                    </div>
+                  </div>
+                }
+                @if (imgurl) {
+                  <div class="text-center mt-3">
+                    <img src="{{ imgurl }}" width="350" />
+                  </div>
+                }
 
-      <div class="text-center mt-3">
-        <input
-          [disabled]="myForm.invalid"
-          type="button"
-          class="fadeIn fourth"
-          value="💾 Save"
-          (click)="onSave()"
-        />
-        <input
-          type="button"
-          class="fadeIn fourth"
-          value="⏪ Back"
-          (click)="goToList()"
-        />
-      </div>
-    </form>
-  </div>
-</div>
+                <div class="text-center mt-3">
+                  <input
+                    [disabled]="myForm.invalid"
+                    type="button"
+                    class="fadeIn fourth"
+                    value="💾 Save"
+                    (click)="onSave()"
+                    />
+                    <input
+                      type="button"
+                      class="fadeIn fourth"
+                      value="⏪ Back"
+                      (click)="goToList()"
+                      />
+                    </div>
+                  </form>
+                </div>
+              </div>
