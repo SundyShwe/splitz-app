@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "splitz-frontend:build:production"
+              "buildTarget": "splitz-frontend:build:production"
             },
             "development": {
-              "browserTarget": "splitz-frontend:build:development"
+              "buildTarget": "splitz-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "splitz-frontend:build"
+            "buildTarget": "splitz-frontend:build"
           }
         },
         "test": {
